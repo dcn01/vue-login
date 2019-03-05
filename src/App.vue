@@ -1,19 +1,7 @@
 <template>
   <div id="app">
-    <el-container>
-      <el-header>
-        <HeadBox />
-      </el-header>
-      <el-container>
-        <el-aside width="200px">
-          <AsideNav />
-        </el-aside>
-        <el-main>
-          <router-view />
-        </el-main>
-      </el-container>
-    </el-container>
-
+    <router-view>
+    </router-view>
   </div>
 </template>
 <script>
