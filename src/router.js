@@ -6,7 +6,7 @@ import Login from "./views/Login.vue";
 
 Vue.use(Router);
 
-export default new Router({
+let router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [{
@@ -17,11 +17,17 @@ export default new Router({
       children: [{
           path: "/home",
           name: "home",
+          meta:{
+            login:true
+          },
           component: Home
         },
         {
           path: "/about",
           name: "about",
+          meta:{
+            login:true
+          },
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
@@ -31,6 +37,9 @@ export default new Router({
         {
           path: "/setting",
           name: "setting",
+          meta:{
+            login:true
+          },
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
@@ -47,3 +56,20 @@ export default new Router({
 
   ]
 });
+router.beforeEach((to,from,next)=>{
+  if(to.path === '/login'){
+    if(window.localStorage.getItem("token")&&window.localStorage.getItem("token")=="daf9054549rq329ewoq"){
+      next('/home');
+    }else{
+      next()
+    }
+  }else{
+    if(window.localStorage.getItem("token")&&window.localStorage.getItem("token")=="daf9054549rq329ewoq"){
+      next();
+    }else{
+      next('/login')
+    }
+  }
+})
+
+export default router;
