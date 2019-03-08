@@ -4,14 +4,14 @@
       <h1>XX后台管理系统</h1>
     </el-col>
     <el-col :span="4">
-      <el-dropdown :hide-on-click="true">
+      <el-dropdown :hide-on-click="true" @command="handleOutLogin">
         <span class="el-dropdown-link">
-          <span>超厉害</span><i class="el-icon-arrow-down el-icon--right"></i>
+          <span>{{userName}}</span><i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>我的</el-dropdown-item>
           <el-dropdown-item>设置</el-dropdown-item>
-          <el-dropdown-item divided>退出登录</el-dropdown-item>
+          <el-dropdown-item divided command="a">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </el-col>
@@ -20,7 +20,22 @@
 
 <script>
 export default {
-  name: "headBox"
+  name: "headBox",
+  computed:{
+    userName(){
+      return window.localStorage.userName?window.localStorage.userName:"未登录"
+    }
+  },
+  methods:{
+    handleOutLogin(command){
+      if(command == "a"){
+        window.localStorage.removeItem("token");
+        window.localStorage.removeItem("userName");
+        this.$router.push("/login")
+      }
+      
+    }
+  }
 };
 </script>
 

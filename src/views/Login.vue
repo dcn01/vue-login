@@ -26,6 +26,9 @@ export default {
       password: ""
     };
   },
+  mounted(){
+    window.addEventListener("keyup",this.enterLoginTo)
+  },
   methods: {
     loginTo() {
       if (
@@ -43,6 +46,10 @@ export default {
             if(data.data.code=="200"){
               window.localStorage.setItem("userName",data.data.name);
               window.localStorage.setItem("token",data.data.token);
+              if(this.$route.query.redirect){
+                this.$router.push(this.$route.query.redirect);
+                return;
+              }
               this.$router.push("/home");
             }
           });
@@ -53,10 +60,20 @@ export default {
             password: this.password
           })
           .then(data => {
-            this.$router.push("/home");
+            alert("用户名或密码错误");
+            this.username = '';
+            this.password = '';
           });
       }
+    },
+    enterLoginTo(e){
+      if(e.keyCode == "13"){
+        this.loginTo()
+      }
     }
+  },
+  beforeDestroy(){
+    window.removeEventListener("keyup",this.enterLoginTo);
   }
 };
 </script>

@@ -67,7 +67,12 @@ router.beforeEach((to,from,next)=>{
     if(window.localStorage.getItem("token")&&window.localStorage.getItem("token")=="daf9054549rq329ewoq"){
       next();
     }else{
-      next('/login')
+      next({
+        path:'/login',
+        query:{
+          redirect:to.path
+        }
+      })
     }
   }
 })

@@ -1,24 +1,24 @@
 <template>
   <el-menu
-    default-active="1"
+    :default-active="active"
     class="el-menu-vertical-demo"
     background-color="transparent"
     text-color="#fff"
     active-text-color="#409EFF"
   >
-    <el-menu-item index="1">
+    <el-menu-item index="home">
       <router-link to="/home" tag="div">
         <i class="el-icon-location"></i>
         <span>主页</span>
       </router-link>
     </el-menu-item>
-    <el-menu-item index="2">
+    <el-menu-item index="about">
       <router-link to="/about" tag="div">
         <i class="el-icon-menu"></i>
         <span>关于</span>
       </router-link>
     </el-menu-item>
-    <el-menu-item index="3">
+    <el-menu-item index="setting">
       <router-link to="setting" tag="div">
         <i class="el-icon-setting"></i>
         <span>设置</span>
@@ -29,7 +29,18 @@
 
 <script>
 export default {
-  name: "asideNav"
+  name: "asideNav",
+  data(){
+    return {
+      active:"home"
+    }
+  },
+  watch:{
+    $route(e){
+      console.log(e)
+      this.active = e.name;
+    }
+  }
 };
 </script>
 
